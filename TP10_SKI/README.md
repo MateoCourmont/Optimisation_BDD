@@ -1,6 +1,6 @@
 ### Description
 
-Ce TP consiste à gérer la base de données des clients d'une station de ski, et effectuer des requêtes pour ene extraire des informations
+Ce TP consiste à gérer la base de données des clients d'une station de ski, et effectuer des requêtes pour en extraire des informations
 
 ## PARTIE 1 : Création de la base de données et insertion des données
 
@@ -225,11 +225,52 @@ INSERT INTO lignesFic (noFic, noLig,  refart, depart, retour) VALUES
 SELECT * FROM clients WHERE nom LIKE 'D%';
 ```
 
+| ID  | Nom       | Prénom    | Adresse                         | Code Postal | Ville                 |
+| --- | --------- | --------- | ------------------------------- | ----------- | --------------------- |
+| 3   | Dupond    | Camille   | Rue Crébillon                   | 44000       | Nantes                |
+| 4   | Desmoulin | Daniel    | Rue descendante                 | 21000       | Dijon                 |
+| 9   | Dupond    | Jean      | Rue des mimosas                 | 75018       | Paris                 |
+| 20  | Dubosc    | Frank     | 12 avenue des flots bleus       | 76140       | Petit-Quevilly        |
+| 23  | Dujardin  | Jean      | rue Brice                       | 92500       | Rueil-Malmaison       |
+| 31  | Duris     | Romain    | 76 rue de l'arnaqueur'          | 06000       | Nice                  |
+| 32  | Depardieu | Gérard    | 57 rue du conte de Monté-Cristo | 36000       | Châteauroux           |
+| 43  | Dupontel  | Albert    | 11 impasse de Bernie            | 78100       | Saint-Germain-en-Laye |
+| 45  | Deneuve   | Catherine | 12 rue de Rochefort             | 50100       | Cherbourg-Octeville   |
+| 46  | de France | Cécile    | 17 rue de l'auberge espagnole'  | 08000       | Charlesville-Mézières |
+
 ### 2️⃣ Nom et prénom de tous les clients
 
 ```sql
 SELECT nom, prenom FROM clients;
 ```
+
+| Nom        | Prénom   |
+| ---------- | -------- |
+| Albert     | Anatole  |
+| Bernard    | Barnabé  |
+| Dupond     | Camille  |
+| Desmoulin  | Daniel   |
+| Ernest     | Etienne  |
+| Ferdinand  | François |
+| Dupond     | Jean     |
+| Boutaud    | Sabine   |
+| Dubosc     | Frank    |
+| Boon       | Dany     |
+| Elmaleh    | Gad      |
+| Dujardin   | Jean     |
+| Marceau    | Sophie   |
+| Merad      | Kad      |
+| Seigner    | Mathilde |
+| Reno       | Jean     |
+| Lanvin     | Gérard   |
+| Tautou     | Audrey   |
+| Cotillard  | Marion   |
+| Duris      | Romain   |
+| Depardieu  | Gérard   |
+| Youn       | Michael  |
+| Poelvoorde | Benoït   |
+| Paradis    | Vanessa  |
+| Wilson     | Lambert  |
 
 ### 3️⃣ Liste des fiches (n°, état) pour les clients (nom, prénom) qui habitent en Loire Atlantique (44)
 
@@ -241,6 +282,11 @@ JOIN lignesFic l ON f.noFic = l.noFic
 WHERE c.cpo LIKE '44%'
 GROUP BY c.noCli;
 ```
+
+| Nom       | Prénom   | noFic | État |
+| --------- | -------- | ----- | ---- |
+| Dupond    | Camille  | 1005  | EC   |
+| Ferdinand | François | 1004  | EC   |
 
 ### 4️⃣ Détail de la fiche n°1002
 
@@ -264,6 +310,12 @@ JOIN tarifs t ON g.codeTarif = t.codeTarif
 WHERE f.noFic = 1002;
 ```
 
+| noFic | Nom       | Prénom | RefArt | Désignation          | Départ     | Retour     | Prix/Jour | Montant |
+| ----- | --------- | ------ | ------ | -------------------- | ---------- | ---------- | --------- | ------- |
+| 1002  | Desmoulin | Daniel | A03    | Salomon 24X+Z12      | 2025-01-17 | 2025-01-21 | 10.00     | 40.00   |
+| 1002  | Desmoulin | Daniel | A04    | Salomon 24X+Z12      | 2025-01-18 | 2025-01-23 | 10.00     | 50.00   |
+| 1002  | Desmoulin | Daniel | S03    | Décathlon Apparition | 2025-01-22 | NULL       | 10.00     | 90.00   |
+
 ### 5️⃣ Prix journalier moyen de location par gamme
 
 ```sql
@@ -274,6 +326,13 @@ INNER JOIN tarifs t ON grilletarifs.codeTarif = t.codeTarif
 GROUP BY g.libelle
 ORDER BY moyenne_prix ASC;
 ```
+
+| Libellé                | Moyenne Prix |
+| ---------------------- | ------------ |
+| Entrée de gamme        | 10.833333    |
+| Moyenne gamme          | 15.833333    |
+| Haut de gamme          | 27.500000    |
+| Matériel Professionnel | 80.000000    |
 
 ### 6️⃣ Détail de la fiche n°1002 avec le total
 
@@ -298,6 +357,12 @@ JOIN tarifs t ON g.codeTarif = t.codeTarif
 WHERE f.noFic = 1002;
 ```
 
+| noFic | Nom       | Prénom | RefArt | Désignation          | Départ     | Retour     | Prix/Jour | Montant | Total  |
+| ----- | --------- | ------ | ------ | -------------------- | ---------- | ---------- | --------- | ------- | ------ |
+| 1002  | Desmoulin | Daniel | A03    | Salomon 24X+Z12      | 2025-01-17 | 2025-01-21 | 10.00     | 40.00   | 180.00 |
+| 1002  | Desmoulin | Daniel | A04    | Salomon 24X+Z12      | 2025-01-18 | 2025-01-23 | 10.00     | 50.00   | 180.00 |
+| 1002  | Desmoulin | Daniel | S03    | Décathlon Apparition | 2025-01-22 | NULL       | 10.00     | 90.00   | 180.00 |
+
 ### 7️⃣ Grille des tarifs
 
 ```sql
@@ -307,6 +372,29 @@ JOIN tarifs t ON gt.codeTarif = t.codeTarif
 JOIN gammes g ON gt.codeGam = g.codeGam
 JOIN categories c ON gt.codeCate = c.codeCate;
 ```
+
+| Libellé                | Gamme                  | Tarif    | Prix/Jour |
+| ---------------------- | ---------------------- | -------- | --------- |
+| Monoski                | Entrée de gamme        | Base     | 10.00     |
+| Surf                   | Entrée de gamme        | Base     | 10.00     |
+| Patinette              | Entrée de gamme        | Base     | 10.00     |
+| Ski de fond alternatif | Entrée de gamme        | Base     | 10.00     |
+| Ski alpin              | Entrée de gamme        | Base     | 10.00     |
+| Ski de fond patineur   | Entrée de gamme        | Chocolat | 15.00     |
+| Surf                   | Haut de gamme          | Bronze   | 20.00     |
+| Ski de fond alternatif | Haut de gamme          | Argent   | 30.00     |
+| Ski de fond patineur   | Haut de gamme          | Argent   | 30.00     |
+| Ski alpin              | Haut de gamme          | Argent   | 30.00     |
+| Monoski                | Moyenne gamme          | Chocolat | 15.00     |
+| Surf                   | Moyenne gamme          | Chocolat | 15.00     |
+| Patinette              | Moyenne gamme          | Chocolat | 15.00     |
+| Ski de fond alternatif | Moyenne gamme          | Chocolat | 15.00     |
+| Ski alpin              | Moyenne gamme          | Chocolat | 15.00     |
+| Ski de fond patineur   | Moyenne gamme          | Bronze   | 20.00     |
+| Surf                   | Matériel Professionnel | Or       | 50.00     |
+| Ski de fond alternatif | Matériel Professionnel | Platine  | 90.00     |
+| Ski de fond patineur   | Matériel Professionnel | Platine  | 90.00     |
+| Ski alpin              | Matériel Professionnel | Platine  | 90.00     |
 
 ### 8️⃣ Liste des locations de la catégorie SURF
 
@@ -323,6 +411,12 @@ WHERE EXISTS (
 GROUP BY l.refart, a.designation;
 ```
 
+| RefArt | Désignation          | NbLocation |
+| ------ | -------------------- | ---------- |
+| S01    | Décathlon Apparition | 4          |
+| S02    | Décathlon Apparition | 2          |
+| S03    | Décathlon Apparition | 2          |
+
 ### 9️⃣ Calcul du nombre moyen d’articles loués par fiche de location
 
 ```sql
@@ -334,6 +428,10 @@ FROM (
     GROUP BY f.noFic
 ) AS nbArticlesParFiche;
 ```
+
+| Moyenne Nb Article par Fiche |
+| ---------------------------- |
+| 2.6000                       |
 
 ### 1️⃣0️⃣ Calcul du nombre de fiches de location établies pour les catégories de location Ski alpin, Surf et Patinette
 
@@ -347,13 +445,19 @@ WHERE c.libelle IN ('Ski alpin', 'Surf', 'Patinette')
 GROUP BY c.libelle;
 ```
 
+| Catégorie | NbFiches |
+| --------- | -------- |
+| Patinette | 2        |
+| Ski alpin | 4        |
+| Surf      | 8        |
+
 ### 1️⃣1️⃣ Calcul du montant moyen des fiches de location
 
 ```sql
 --NE FONCTIONNE PAS OU PAS MEME RESULTAT QUE TP
 SELECT AVG(montant) AS moyenne_montant_fiche
 FROM (
-    SELECT DATEDIFF(IFNULL(l.retour, CURDATE()), l.depart) * t.prixJour AS montant,
+    SELECT DATEDIFF(IFNULL(l.retour, CURDATE()), l.depart) * t.prixJour AS montant
     FROM fiches f
     JOIN clients c ON f.noCli = c.noCli
     JOIN lignesFic l ON f.noFic = l.noFic
@@ -362,3 +466,7 @@ FROM (
     JOIN tarifs t ON g.codeTarif = t.codeTarif
 ) AS montantParFiche;
 ```
+
+| Moyenne Montant par Fiche |
+| ------------------------- |
+| 56.346154                 |
