@@ -1,3 +1,10 @@
+### Description
+
+Ce TP consiste à la mise en place d'une base de données à partir de zéro. Le pitch :
+Un caviste veut créer un site internet pour mettre en vente sur le web ses bouteilles.
+Il souhaite un moteur de recherche très pertinent avec des filtres adapatés.
+Consevoir la base de données.
+
 ### Modèle relationnel de la base
 
 ![Modèle relationnel de la base](/TP12_Vin/ModèleBdd.png)

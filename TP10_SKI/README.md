@@ -1,3 +1,7 @@
+### Description
+
+Ce TP consiste à gérer la base de données des clients d'une station de ski, et effectuer des requêtes pour ene extraire des informations
+
 ## PARTIE 1 : Création de la base de données et insertion des données
 
 ### Création de la BDD

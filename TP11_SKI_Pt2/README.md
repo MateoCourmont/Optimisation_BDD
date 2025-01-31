@@ -1,3 +1,7 @@
+### Description
+
+Ce TP est la suite du TP précédent
+
 ### Insersion des données dans la table
 
 ```sql
